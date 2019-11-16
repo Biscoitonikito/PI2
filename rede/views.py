@@ -95,4 +95,5 @@ class ApiRootProfile(generics.GenericAPIView):
         'comments': reverse(CommentList.name,request=request),
         'profile-posts': reverse(ProfilePostList.name, request=request),
         'posts-comments': reverse(PostCommentList.name,request=request),
+        
 })

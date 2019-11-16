@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class ProfileListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
-        fields = ('pk', 'name', 'email', 'url')
+        fields = ('pk', 'name', 'email','address', 'url')
 
 class ProfileDetailSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -32,10 +32,9 @@ class PostComment(serializers.HyperlinkedModelSerializer):
 ##################################################################################################################
 
 class PostListSerializer(serializers.HyperlinkedModelSerializer):
-    userId = serializers.SlugRelatedField(queryset=Profile.objects.all(), slug_field='id')
     class Meta:
         model = Post
-        fields = ('pk', 'title', 'body', 'userId', 'url')
+        fields = ('pk', 'title', 'body', 'url')
 
 class ProfilePost(serializers.HyperlinkedModelSerializer):
     class Meta:
