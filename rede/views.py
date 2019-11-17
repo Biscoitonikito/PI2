@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.views import APIView
 from rede.paginations import *
 
 from rede.models import Profile, Post, Comment
@@ -85,6 +86,33 @@ class PostCommentList(generics.ListCreateAPIView):
 
 #################################################################################################################
 
+
+class Resume(APIView):
+    name = 'profile-resume'
+
+    def get(self, request):
+        profiles = Profile.objects.all()
+        resume_list = []
+        
+        for profile in profiles:
+            posts = profile.posts.all()
+            comments = profile.author.all()
+            resume = {'pk': profile.id, 'name': profile.name, 'posts': len(posts), 'comments': len(comments)}
+            resume_list.append(resume)
+        return Response(resume_list, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+
+
+
+
+#################################################################################################################
+
 class ApiRootProfile(generics.GenericAPIView):
     name = 'root-proflie'
 
@@ -95,5 +123,5 @@ class ApiRootProfile(generics.GenericAPIView):
         'comments': reverse(CommentList.name,request=request),
         'profile-posts': reverse(ProfilePostList.name, request=request),
         'posts-comments': reverse(PostCommentList.name,request=request),
-        
+        'resume': reverse(Resume.name,request=request),
 })

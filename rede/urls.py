@@ -15,6 +15,7 @@ urlpatterns = [
     path('posts/<int:pk>/', views.PostDetail.as_view(), name=views.PostDetail.name),
     path('comments/', views.CommentList.as_view(), name=views.CommentList.name),
     path('comments/<int:pk>/', views.CommentDetail.as_view(), name=views.CommentDetail.name),
+    path('resume/', views.Resume.as_view(), name = views.Resume.name),
     
     path('profile-posts/', views.ProfilePostList.as_view(), name=views.ProfilePostList.name),
     path('profile-comments/', views.PostCommentList.as_view(),name= views.PostCommentList.name),
